@@ -1,14 +1,22 @@
 const { App, subtype } = require('@slack/bolt');
 const path = require('path');
 const { llog } = require('./src/utils');
-const { noBot } = require('./src/utils/ll-slack-utils/middleware');
-const { handleTesting, handleAllNonBot, handleBot } = require('./src/bot/handle-messages');
-const slashHandler = require('./src/bot/handle-slashes');
-const eventHandler = require('./src/bot/handle-events')
-const { everything } = require('./src/utils/ll-regexes') 
+// const { noBot } = require('./src/utils/ll-slack-utils/middleware');
+// const { handleTesting, handleAllNonBot, handleBot } = require('./src/bot/handle-messages');
+// const slashHandler = require('./src/bot/handle-slashes');
+// const eventHandler = require('./src/bot/handle-events')
+// const { everything } = require('./src/utils/ll-regexes') 
 
 require('dotenv').config();
 global.ROOT_DIR = path.resolve(__dirname);
+
+
+const handleTesting = async ({ message, say }) => {
+  llog.cyan("got testing testing", message)
+  // say() sends a message to the channel where the event was triggered
+  await say(`the bot is running, <@${message.user}>.`);
+}
+
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
