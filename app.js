@@ -1,7 +1,8 @@
 const { App, subtype } = require('@slack/bolt');
 const path = require('path');
 const { llog } = require('./src/utils');
-const { noBot } = require('./src/utils/ll-slack-utils/middleware')
+const { noBot } = require('./src/utils/ll-slack-utils/middleware');
+const handleAllNonBot = require('./src/handle-all-non-bot')
 // const { handleTesting, handleAllNonBot, handleBot } = require('./src/bot/handle-messages');
 // const slashHandler = require('./src/bot/handle-slashes');
 // const eventHandler = require('./src/bot/handle-events')
@@ -21,12 +22,6 @@ const handleHello = async ({ message, say }) => {
   llog.cyan("got a hello message", message)
   // say() sends a message to the channel where the event was triggered
   await say(`hello yourself, <@${message.user}>.`);
-}
-
-const handleAllNonBot = async ({ message, say }) => {
-  llog.magenta("got any old message", message)
-  // say() sends a message to the channel where the event was triggered
-  // await say(`the bot is running, <@${message.user}>.`);
 }
 
 const app = new App({
